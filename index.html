@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+
+    <title>Frontend Mentor | Time tracking dashboard</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+        /*.attribution { font-size: 11px; text-align: center; }
+        .attribution a { color: hsl(228, 45%, 44%); }*/
+
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background-color: hsl(226, 43%, 10%);
+            font-family: Rubik;
+            display: flex;
+            justify-content: center;
+            font-size: 18px;
+
+        }
+
+        @media all and (min-width: 375px) and (max-width: 1440px) {
+            body {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        #imageJeremy {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 4rem;
+            height: 4rem;
+            border: 3px solid #FFF;
+            border-radius: 50%
+        }
+
+        #mainContainer {
+            position: absolute;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            align-items: center;
+            justify-content: center;
+            grid-column-gap: 20px;
+            grid-row-gap: 80px;
+            padding: 10px;
+            margin: 200px auto;
+
+        }
+
+        #div1 {
+            position: relative;
+            grid-row: 1/4;
+            height: 350px;
+            width: 180px;
+            background: hsl(235, 46%, 20%);
+            border-radius: 10px;
+        }
+
+        #div2 {
+            height: 255px;
+            width: 180px;
+            background: hsl(246, 80%, 60%);
+            position: absolute;
+            bottom: 120px;
+            border-radius: 10px;
+        }
+
+        #report {
+            font-size: 15px;
+            color: #ffffff;
+            opacity: 0.5;
+            margin-top: 120px;
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+
+        #name, #name2 {
+            color: white;
+            margin-left: 20px;
+            font-size: 25px;
+        }
+        #containerTime{
+            color:white;
+            position: absolute;
+            bottom:3px;
+            left:30px;
+           font-size: 15px;
+
+
+        }
+
+        .divImage {
+            width: 180px;
+            height: 120px;
+            border-radius: 10px;
+        }
+
+        .frontDiv {
+            position: absolute;
+            top: 35px;
+            background-color: hsl(235, 46%, 20%);
+            width: 180px;
+            height: 150px;
+            border-radius: 10px;
+        }
+
+        img {
+            width: 40px;
+            height: 40px;
+            float: right;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div id="mainContainer">
+
+    <div id="div1">
+        <div id="div2"><img id="imageJeremy" src="./images/image-jeremy.png">
+            <div id="report">report for</div>
+            <div  id="name">Jeremy</div>
+            <div id="name2">Robson</div>
+
+
+        </div>
+           <div id="containerTime">
+                <div style="margin-bottom: 20px;opacity: 0.5">daily</div>
+                <div style="margin-bottom: 20px;opacity: 1">weekly</div>
+                <div style="margin-bottom: 20px;opacity: 0.5" >monthly</div>
+            </div>
+
+    </div>
+
+
+    <div style="background-color: hsl(15, 100%, 70%)" class="divImage"><img src="./images/icon-work.svg">
+        <div class="frontDiv"></div>
+    </div>
+    <div style="background-color: hsl(195, 74%, 62%)" class="divImage"><img src="./images/icon-play.svg">
+        <div class="frontDiv"></div>
+    </div>
+    <div style="background-color: hsl(348, 100%, 68%)" class="divImage"><img src="./images/icon-study.svg">
+        <div class="frontDiv"></div>
+    </div>
+    <div style="background-color: hsl(145, 58%, 55%)" class="divImage"><img src="./images/icon-exercise.svg">
+        <div style="top:205px;margin-top:30px;" class="frontDiv"></div>
+    </div>
+    <div style="background-color: hsl(264, 64%, 52%)" class="divImage"><img src="./images/icon-social.svg">
+        <div style="top:205px;margin-top:30px;" class="frontDiv"></div>
+    </div>
+    <div style="background-color: hsl(43, 84%, 65%)" class="divImage"><img src="./images/icon-self-care.svg">
+        <div style="top:205px;margin-top:30px;" class="frontDiv"></div>
+    </div>
+    <!-- <div class="columns2">
+     <div class="columns2"></div>
+     <div class="columns2"></div>
+     <div class="columns2"></div>
+     <div class="columns2"></div>
+     <div class="columns2"></div>
+    -->
+
+
+</div>
+
+<script type="text/javascript">
+
+    let colmns = document.querySelectorAll('.frontDiv');
+    /*let div2 = document.querySelector('#div2')*/
+
+
+    fetch("./data.json")
+        .then(response => {
+            return response.json();
+        }).then((data) => {
+        let arr = [];
+        data.map(x => arr.push(x));
+
+        for (let i = 0; i < arr.length; i++) {
+
+            colmns[i].innerHTML += `<div style="color:white;
+                      font-weight: bold;
+                      position: absolute;
+                      margin-top:10px;
+                      margin-left:20px;"
+                    >${arr[i].title}</div ><div style="font-size:25px;position:absolute;right:20px; color:white;">...</div>
+ <br>
+                    <div style="color:white;font-size:40px ;
+                    margin-top:28px;margin-left:25px;">${arr[i].timeframes.weekly.current}hrs</div><br>
+                    <span style="color:white;font-size:15px;position: absolute;bottom:20px;margin-left: 20px;opacity: 0.5">last week-<span style="opacity: 0.7">
+                    ${arr[i].timeframes.weekly.previous} hrs</span></span>`
+        }
+        console.log(data)
+    })
+
+
+</script>
+
+</body>
+</html>
+
+
+<!--  Report for
+  Jeremy Robson
+
+  Daily
+  Weekly
+  Monthly
+
+  Work
+  5hrs &lt;!&ndash; daily &ndash;&gt;
+  Previous - 7hrs &lt;!&ndash; daily &ndash;&gt;
+  32hrs &lt;!&ndash; weekly &ndash;&gt;
+  Previous - 36hrs &lt;!&ndash; weekly &ndash;&gt;
+  103hrs &lt;!&ndash; monthly &ndash;&gt;
+  Previous - 128hrs &lt;!&ndash; monthly &ndash;&gt;
+
+  Play
+  1hr &lt;!&ndash; daily &ndash;&gt;
+  Previous - 2hrs &lt;!&ndash; daily &ndash;&gt;
+  10hrs &lt;!&ndash; weekly &ndash;&gt;
+  Previous - 8hrs &lt;!&ndash; weekly &ndash;&gt;
+  23hrs &lt;!&ndash; monthly &ndash;&gt;
+  Previous - 29hrs &lt;!&ndash; monthly &ndash;&gt;
+
+  Study
+  0hrs &lt;!&ndash; daily &ndash;&gt;
+  Previous - 1hr &lt;!&ndash; daily &ndash;&gt;
+  4hrs &lt;!&ndash; weekly &ndash;&gt;
+  Previous - 7hrs &lt;!&ndash; weekly &ndash;&gt;
+  13hrs &lt;!&ndash; monthly &ndash;&gt;
+  Previous - 19hrs &lt;!&ndash; monthly &ndash;&gt;
+
+  Exercise
+  1hr &lt;!&ndash; daily &ndash;&gt;
+  Previous - 1hr &lt;!&ndash; daily &ndash;&gt;
+  4hrs &lt;!&ndash; weekly &ndash;&gt;
+  Previous - 5hrs &lt;!&ndash; weekly &ndash;&gt;
+  11hrs &lt;!&ndash; monthly &ndash;&gt;
+  Previous - 18hrs &lt;!&ndash; monthly &ndash;&gt;
+
+  Social
+  1hr &lt;!&ndash; daily &ndash;&gt;
+  Previous - 3hrs &lt;!&ndash; daily &ndash;&gt;
+  5hrs &lt;!&ndash; weekly &ndash;&gt;
+  Previous - 10hrs &lt;!&ndash; weekly &ndash;&gt;
+  21hrs &lt;!&ndash; monthly &ndash;&gt;
+  Previous - 23hrs &lt;!&ndash; monthly &ndash;&gt;
+
+  Self Care
+  0hrs &lt;!&ndash; daily &ndash;&gt;
+  Previous - 1hr &lt;!&ndash; daily &ndash;&gt;
+  2hrs &lt;!&ndash; weekly &ndash;&gt;
+  Previous - 2hrs &lt;!&ndash; weekly &ndash;&gt;
+  7hrs &lt;!&ndash; monthly &ndash;&gt;
+  Previous - 11hrs &lt;!&ndash; monthly &ndash;&gt;-->
+
+
+<!-- <footer class="attribution">
+   Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+   Coded by <a href="#">Your Name Here</a>.
+ </footer>-->
